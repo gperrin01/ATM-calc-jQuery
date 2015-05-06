@@ -18,11 +18,27 @@ var setupEventListerners = function() {
   })
   $('#deposit1').on('click', function(e) {
     CurrentAccount = CurrentAccount + numCurrent;
-    $('#balance1').text(CurrentAccount);
+    $('#balance1').text('$'+CurrentAccount);
   })
   $('#deposit2').on('click', function(e) {
     SavingsAccount = SavingsAccount + numSavings;
-    $('#balance2').text(SavingsAccount);
+    $('#balance2').text('$'+SavingsAccount);
+  })
+
+// withdrawal from current account
+// what if eq 0 ?
+  $('#withdraw1').on('click', function(e) {
+    // withdraw amount = numCurrent, if > Current Account then take from savings
+    if (numCurrent <= CurrentAccount) {
+      CurrentAccount -= numCurrent;
+      $('#balance1').text('$'+CurrentAccount)
+    }
+    else if (numCurrent <= CurrentAccount + SavingsAccount) {
+      CurrentAccount = 0;
+      SavingsAccount -= numCurrent - CurrentAccount;
+      $('#balance2').text('$'+SavingsAccount);
+    }
+    else alert('You do not have sufficient funds to perform this operation.\n' + 'The maximum amount you can withdraw is $' + (CurrentAccount+SavingsAccount +'\n\nGet a job!!'))
   })
 
 }// end of event listerners declaration
