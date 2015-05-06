@@ -26,7 +26,6 @@ var setupEventListerners = function() {
   })
 
   // withdrawal from current account
-  // what if eq 0 ?
   $('#withdraw1').on('click', function(e) {
     // withdraw amount = numCurrent, if > Current Account then take from savings
     if (numCurrent <= CurrentAccount) {
@@ -47,6 +46,10 @@ var setupEventListerners = function() {
     if (numSavings <= SavingsAccount) {
       SavingsAccount -= numSavings;
       $('#balance2').text('$'+SavingsAccount);
+      if (SavingsAccount===0) { 
+        toggleRedBorder(); 
+        debugger;
+       };
     }
     else alert('You do not have sufficient funds to perform this operation.\n' + 'The maximum amount you can withdraw is $' + SavingsAccount +'\n\nGet a job!!')
   })
@@ -54,3 +57,8 @@ var setupEventListerners = function() {
 
 }// end of event listerners declaration
 
+// functions to be called by the event Listerners
+var toggleRedBorder = function () {
+  $(this).parent().toggleClass('zero');
+  $(this).parent().toggleClass('account');
+};
