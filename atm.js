@@ -19,12 +19,12 @@ var setupEventListerners = function() {
   $('#deposit1').on('click', function(e) {
     CurrentAccount = CurrentAccount + numCurrent;
     $('#balance1').text('$'+CurrentAccount);
-    toggleRedBorder($(this));
+    toggleRedBorder();
   })
   $('#deposit2').on('click', function(e) {
     SavingsAccount = SavingsAccount + numSavings;
     $('#balance2').text('$'+SavingsAccount);
-    toggleRedBorder($(this));
+    toggleRedBorder();
   })
 
   // withdrawal from current account
@@ -41,7 +41,7 @@ var setupEventListerners = function() {
       $('#balance2').text('$'+SavingsAccount);
     }
       else {alert('You do not have sufficient funds to perform this operation.\n' + 'The maximum amount you can withdraw is $' + CurrentAccount+SavingsAccount +'\n\nGet a job!!')}
-    toggleRedBorder($(this));
+    toggleRedBorder();
   })
 
   // withdrawal from savings account
@@ -51,15 +51,27 @@ var setupEventListerners = function() {
       $('#balance2').text('$'+SavingsAccount);
     }
     else {alert('You do not have sufficient funds to perform this operation.\n' + 'The maximum amount you can withdraw is $' + SavingsAccount +'\n\nGet a job!!')}
-    toggleRedBorder($(this));
+    toggleRedBorder();
   })
 
 
 }// end of event listerners declaration
 
 // functions to be called by the event Listerners
-var toggleRedBorder = function (element) {
-  if ( (CurrentAccount===0) || (SavingsAccount===0) )
-    element.parent().toggleClass('zero');
-    element.parent().toggleClass('account'); 
+var toggleRedBorder = function () {
+  if (CurrentAccount===0) {
+    $('#balance1').addClass('zero');
+    $('#balance1').removeClass('account');
+  } else {
+      $('#balance1').addClass('account');
+      $('#balance1').removeClass('zero')
+    }
+  
+  if (SavingsAccount===0) {
+    $('#balance2').addClass('zero');
+    $('#balance2').removeClass('account')
+  } else {
+      $('#balance2').addClass('account');
+      $('#balance2').removeClass('zero') 
+    }
 };
